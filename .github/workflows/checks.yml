@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
   test-lint:
-    name: Test and linkt
+    name: Test and Lint
     runs-on: ubuntu-20.04
     steps:
       - name: Login to Docker hub
@@ -17,5 +17,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Test
         run: docker-compose run --rm app sh -c "python manage.py test"
-      - name: Link 
+      - name: Lint
         run: docker-compose run --rm app sh -c "flake8"
