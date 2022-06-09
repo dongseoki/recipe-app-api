@@ -1,5 +1,5 @@
 """
-Django models.
+Database models.
 """
 from django.db import models
 from django.contrib.auth.models import (
@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+
 
 class UserManager(BaseUserManager):
     """Manager for users."""
@@ -29,6 +30,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
