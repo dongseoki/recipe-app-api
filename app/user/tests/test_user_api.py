@@ -12,9 +12,11 @@ CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
 
+
 def create_user(**params):
     """Create and retrun a new user."""
     return get_user_model().objects.create_user(**params)
+
 
 class PublicUserApiTests(TestCase):
     """Test the public features of the user API."""
@@ -40,7 +42,7 @@ class PublicUserApiTests(TestCase):
         """Test error returned if user with email exists"""
         payload = {
             'email': 'test@example.com',
-            'password' : 'testpass123',
+            'password': 'testpass123',
             'name': 'Test Name',
         }
         create_user(**payload)
@@ -52,8 +54,8 @@ class PublicUserApiTests(TestCase):
         """Test an error is returned if password less than 5 chars."""
         payload = {
             'email' : 'test@example.com',
-            'password' : 'pw',
-            'name' : 'Test name',
+            'password': 'pw',
+            'name': 'Test name',
         }
         res = self.client.post(CREATE_USER_URL, payload)
 
@@ -73,8 +75,8 @@ class PublicUserApiTests(TestCase):
         create_user(**user_details)
 
         payload = {
-            'email' : user_details['email'],
-            'password' : user_details['password'],
+            'email': user_details['email'],
+            'password': user_details['password'],
         }
         res = self.client.post(TOKEN_URL, payload)
         self.assertIn('token', res.data)
@@ -110,6 +112,7 @@ class PublicUserApiTests(TestCase):
         res = self.client.get(ME_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
 
 class PrivateUserApiTests(TestCase):
     """Test API requests that require authentication"""
