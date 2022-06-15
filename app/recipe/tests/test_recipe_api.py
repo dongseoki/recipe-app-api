@@ -30,7 +30,7 @@ def create_recipe(user, **params):
     defaults = {
         'title': 'Sample recipe title',
         'time_minutes': 22,
-        'price': Decimal(5.25),
+        'price': Decimal('5.25'),
         'description': 'Sample description',
         'link': 'http://example.com/recipe.pdf',
     }
@@ -106,7 +106,7 @@ class PrivateRecipeApiTests(TestCase):
         """Test creating a recipe"""
         payload = {
             'title': 'Sample recipe',
-            'time+_minutes': 30,
+            'time_minutes': 30,
             'price': Decimal('5.99'),
         }
         res = self.client.post(RECIPES_URL, payload)
@@ -114,5 +114,5 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data['id'])
         for k, v in payload.items():
-            self.assertEqual(getattr(recipe,k), v)
+            self.assertEqual(getattr(recipe, k), v)
         self.assertEqual(recipe.user, self.user)
